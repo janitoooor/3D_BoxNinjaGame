@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public Image pausePanel;
 
-    public Button restartButton;
+    [SerializeField] private Button _restartButton;
 
     public GameObject voiceScreen;
     public GameObject titleScreen;
@@ -23,10 +23,7 @@ public class GameManager : MonoBehaviour
     public Slider pauseVoiceSlider;
     public Slider effectsSlider;
     public Slider pauseEffectsSlider;
-
     public AudioSource gameOverVoice;
-
-
     private int score;
     private int lives = 3;
 
@@ -35,21 +32,10 @@ public class GameManager : MonoBehaviour
 
     public bool isGameActive;
     public bool isPauseActive;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        SetPause();
-    }
 
     IEnumerator SpawnTarget()
     {
-        while (isGameActive)// цикл, работает постоянно при логическом условии true/если false он выключается.
+        while (isGameActive)// Г¶ГЁГЄГ«, Г°Г ГЎГ®ГІГ ГҐГІ ГЇГ®Г±ГІГ®ГїГ­Г­Г® ГЇГ°ГЁ Г«Г®ГЈГЁГ·ГҐГ±ГЄГ®Г¬ ГіГ±Г«Г®ГўГЁГЁ true/ГҐГ±Г«ГЁ false Г®Г­ ГўГ»ГЄГ«ГѕГ·Г ГҐГІГ±Гї.
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count);
@@ -69,14 +55,12 @@ public class GameManager : MonoBehaviour
         lives += livesToAdd;
         livesText.text = "Lives:" + lives;
         if(lives < livesToEnd)
-        {
             GameOver();
-        }
     }
 
     public void GameOver()
     {
-        restartButton.gameObject.SetActive(true);
+        _restartButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
         gameOverVoice.Play();
